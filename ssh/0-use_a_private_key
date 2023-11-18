@@ -7,4 +7,4 @@ username=ubuntu
 server_ip=18.208.221.15
 
 # Use ssh with single-character flags to connect using the private key
-ssh -i "$private_key_path" $username@$server_ip
+ssh -i ~/.ssh/school $username@$server_ip
