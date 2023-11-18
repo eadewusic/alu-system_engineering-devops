@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Bash script to connect to the server using a private key
 
 # Define variables
