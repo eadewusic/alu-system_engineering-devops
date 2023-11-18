@@ -7,4 +7,4 @@ username=ubuntu
 server_ip=8.8.8.8
 
 # Use ssh with single-character flags to connect using the private key
-ssh -i "$private_key_path" $username@$server_ip
+ssh -i"$private_key_path" $username@$server_ip
