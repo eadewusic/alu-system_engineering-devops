@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Bash script configures the SSH client to use the private key ~/.ssh/school
+# and refuse password authentication for a specific server.
+
+# Host directive for your specific server
+Host your_server_ip_or_hostname
+    # Use the private key ~/.ssh/school
+    IdentityFile ~/.ssh/school
+
+    # Disable password authentication
+    PasswordAuthentication no
+
+    # Additional configurations if needed
+    # Add other configurations as necessary
