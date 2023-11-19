@@ -2,21 +2,19 @@
 # It configures the client to use the private key ~/.ssh/school
 # and refuses to authenticate using a password.
 
-file { '/etc/ssh/ssh_config':
-  ensure  => present,
-  content => "Host *\n  IdentityFile ~/.ssh/school\n  PasswordAuthentication no",
-  owner   => 'root',
-  group   => 'root',
-  mode    => '0644',
+# Seting up my client config file
+include stdlib
+
+file_line { 'Turn off passwd auth':
+  ensure => present,
+  path   => '/etc/ssh/ssh_config',
+  line   => '    PasswordAuthentication no',
+  replace => true,
 }
 
-# Add regexes to validate the configuration
-validate_augeas { 'ssh_config':
-  lens    => 'Sshd.lns',
-  incl    => '/etc/ssh/ssh_config',
-  context => '/files/etc/ssh/ssh_config',
-  changes => [
-    'set Host[.="*"]/IdentityFile[.="~/.ssh/school"]',
-    'set Host[.="*"]/PasswordAuthentication[.="no"]',
-  ],
+file_line { 'Delare identity file':
+  ensure => present,
+  path   => '/etc/ssh/ssh_config',
+  line   => '     IdentityFile ~/.ssh/school',
+  replace => true,
 }
