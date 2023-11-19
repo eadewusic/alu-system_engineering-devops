@@ -3,11 +3,7 @@
 # and refuses to authenticate using a password.
 file { '/etc/ssh/ssh_config':
   ensure  => present,
-  content => "
-    Host *
-      IdentityFile /home/ubuntu/.ssh/school
-      PasswordAuthentication no
-  ",
+  content => "^\s*PasswordAuthentication no",
   owner   => 'root',
   group   => 'root',
   mode    => '0644',
