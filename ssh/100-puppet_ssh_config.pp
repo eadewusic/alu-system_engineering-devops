@@ -9,3 +9,14 @@ file { '/etc/ssh/ssh_config':
   group   => 'root',
   mode    => '0644',
 }
+
+# Add regexes to validate the configuration
+validate_augeas { 'ssh_config':
+  lens    => 'Sshd.lns',
+  incl    => '/etc/ssh/ssh_config',
+  context => '/files/etc/ssh/ssh_config',
+  changes => [
+    'set Host[.="*"]/IdentityFile[.="~/.ssh/school"]',
+    'set Host[.="*"]/PasswordAuthentication[.="no"]',
+  ],
+}
