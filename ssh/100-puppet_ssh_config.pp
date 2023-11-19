@@ -3,5 +3,5 @@
 # and refuses to authenticate using a password.
 
 Host *
-        IdentityFile ~/.ssh/school
-        PasswordAuthentication no
+	IdentityFile ~/.ssh/school
+	PassworAuthentication no
