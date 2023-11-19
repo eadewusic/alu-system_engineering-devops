@@ -1,16 +1,33 @@
-# Puppet configuration for SSH client
 # This Puppet script sets up the SSH client configuration file.
 # It configures the client to use the private key ~/.ssh/school
 # and refuses to authenticate using a password.
-file { '/home/ubuntu/.ssh/config':
+
+# Define a variable for the private key path
+$private_key = '/home/ubuntu/.ssh/school'
+
+# Define a regex to match lines that start with "Host"
+$host_regex = /^Host /
+
+# Use a template to generate the file content
+file { '/etc/ssh/ssh_config':
   ensure  => present,
-  content => "Host *\n  IdentityFile /home/ubuntu/.ssh/school\n  PasswordAuthentication no\n",
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
+  content => template('ssh/ssh_config.erb'),
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0600',
+  regexes => [
+    $host_regex,
+  ],
 }
 
-exec { 'chmod_ssh_config':
-  command => '/bin/chmod 600 /home/ubuntu/.ssh/config',
-  path    => '/bin',
-  onlyif  => 'file_exists("/home/ubuntu/.ssh/config")',
+# Use the user resource to manage the public key
+user { 'ubuntu':
+  ensure         => present,
+  ssh_authorized_key => {
+    'school' => {
+      ensure => present,
+      type   => 'rsa',
+      key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ3xw...',
+    },
+  },
 }
