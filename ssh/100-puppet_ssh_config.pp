@@ -4,4 +4,4 @@
 
 Host *
 	IdentityFile ~/.ssh/school
-	PassworAuthentication no
+	PasswordAuthentication no
