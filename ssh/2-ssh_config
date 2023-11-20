@@ -9,6 +9,3 @@ Host your_server_ip_or_hostname
 
     # Disable password authentication
     PasswordAuthentication no
-
-    # Additional configurations if needed
-    # Add other configurations as necessary
