@@ -7,15 +7,22 @@ sudo apt-get update -y
 # Install Nginx
 sudo apt-get install nginx -y
 
-# Create a custom HTML page with the desired string
-echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/null
+# Specify the directory for the HTML file
+html_directory="/var/www/html"
+html_file="${html_directory}/index.html"
+
+# Create the HTML directory if it doesn't exist
+sudo mkdir -p "$html_directory"
+
+# Create or overwrite the HTML file with the desired content
+echo "Holberton School for the win!" | sudo tee "$html_file" > /dev/null
 
 # Print the content of the HTML file for debugging
-echo "Content of /var/www/html/index.html:"
-cat /var/www/html/index.html
+echo "Content of $html_file:"
+cat "$html_file"
 
 # Configure Nginx to use the custom HTML page
-sudo sed -i '/server_name\s*localhost;/a \\n\tlocation \/ {\n\t\troot \/var\/www\/html;\n\t\tindex index.html;\n\t}\n' /etc/nginx/sites-available/default
+sudo sed -i '/server_name\s*localhost;/a \\n\tlocation \/ {\n\t\troot '"$html_directory"';\n\t\tindex index.html;\n\t}\n' /etc/nginx/sites-available/default
 
 # Print the modified Nginx configuration for debugging
 echo "Modified Nginx Configuration:"
