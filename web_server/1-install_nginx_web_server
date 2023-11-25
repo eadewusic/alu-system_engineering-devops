@@ -1,8 +1,41 @@
 #!/usr/bin/env bash
-# installs nginx and configures it on a remote server
+# Installs Nginx with the following configurations:
+#+    Listens on port 80.
+#+    Returns a page containing "Holberton School" when queried
+#++    at the root with a curl GET request.
 
-apt-get -y update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-echo 'Holberton School' > /var/www/html/index.nginx-debian.html
-service nginx start
+# Update package list and install Nginx
+sudo apt-get update -y
+sudo apt-get install nginx -y
+
+# Create directory for HTML files
+sudo mkdir -p /var/www/html
+
+# Create HTML file with the desired string
+sudo bash -c 'echo "Holberton School" > /var/www/html/index.html'
+
+# Modify Nginx configuration
+sudo bash -c 'printf %s "server {
+    listen      80 default_server;
+    listen      [::]:80 default_server;
+    root        /var/www/html;
+    index       index.html index.htm;
+}
+" > /etc/nginx/sites-available/default'
+
+# Restart Nginx to apply the changes
+sudo service nginx restart
+
+# Ensure Nginx is listening on port 80
+sudo lsof -i :80 || echo "Nginx is not listening on port 80"
+
+# Test the Nginx server using curl
+response=$(curl -s http://localhost)
+expected="Holberton School"
+
+# Check if the response contains the expected string
+if [[ "$response" == *"$expected"* ]]; then
+    echo "Nginx installation and configuration successful!"
+else
+    echo "Error: Nginx configuration failed."
+fi
