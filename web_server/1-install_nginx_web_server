@@ -8,6 +8,10 @@ sudo apt-get install nginx -y
 # Create a custom HTML page with the desired string
 echo "Holberton School for the win!" | sudo tee /var/www/html/index.html
 
+# Print the content of the HTML file for debugging
+echo "Content of /var/www/html/index.html:"
+cat /var/www/html/index.html
+
 # Configure Nginx to use the custom HTML page
 sudo sed -i 's/^\(server_name\s*localhost;\)$/\1\n\n\tlocation \/ {\n\t\troot \/var\/www\/html;\n\t\tindex index.html;\n\t}\n/' /etc/nginx/sites-available/default
 
