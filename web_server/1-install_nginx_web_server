@@ -5,15 +5,17 @@
 sudo apt-get update -y
 sudo apt-get install nginx -y
 
+# Create directory for HTML files
+sudo mkdir -p /var/www/html
+
 # Create HTML file with the desired string
-sudo mkdir -p /etc/nginx/html
-sudo bash -c 'echo "Holberton School" > /etc/nginx/html/index.html'
+sudo bash -c 'echo "Holberton School" > /var/www/html/index.html'
 
 # Modify Nginx configuration
 sudo bash -c 'printf %s "server {
     listen      80 default_server;
     listen      [::]:80 default_server;
-    root        /etc/nginx/html;
+    root        /var/www/html;
     index       index.html index.htm;
 }
 " > /etc/nginx/sites-available/default'
