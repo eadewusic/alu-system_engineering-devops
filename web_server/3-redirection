@@ -2,33 +2,24 @@
 # Bash script configures an Nginx server so that /redirect_me redirects to another page.
 # The redirection is configured as a "301 Moved Permanently"
 
-# Update package list and install Nginx
-sudo apt-get update -y
-sudo apt-get install nginx -y
+apt-get update
+apt-get install -y nginx
 
-# Create a custom HTML page with the redirection message
-echo '<html><head><meta http-equiv="refresh" content="0;url=https://www.youtube.com/watch?v=QH2-TGUlwu4"></head></html>' | sudo tee /var/www/html/redirect_me/index.html
+mkdir /etc/nginx/html
+touch /etc/nginx/html/index.html
+echo "Holberton School" > /etc/nginx/html/index.html
+printf %s "server {
+    listen 80;
+    listen [::]:80 default_server;
+    root   /etc/nginx/html;
+    index  index.html index.htm;
 
-# Configure Nginx to perform a 301 Moved Permanently redirection
-sudo sed -i '/location \/ {/a\
-    location /redirect_me {\
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\
-    }\
-' /etc/nginx/sites-available/default
+    location / {
+	try_files \$uri \$uri/ =404;
+    }
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=7VAI73roXaY&list=PPSV;
+    }
+}" > /etc/nginx/sites-available/default
 
-# Restart Nginx to apply the changes
-sudo service nginx restart
-
-# Ensure Nginx is listening on port 80
-sudo lsof -i :80 || echo "Nginx is not listening on port 80"
-
-# Test the redirection using curl
-response=$(curl -sI http://localhost/redirect_me/)
-expected="Location: https://www.youtube.com/watch?v=QH2-TGUlwu4"
-
-# Check if the response contains the expected redirection
-if [[ "$response" == *"$expected"* ]]; then
-    echo "Redirection configuration successful!"
-else
-    echo "Error: Redirection configuration failed."
-fi
+service nginx restart
