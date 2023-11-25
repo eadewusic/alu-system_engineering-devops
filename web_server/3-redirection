@@ -18,7 +18,7 @@ printf %s "server {
 	try_files \$uri \$uri/ =404;
     }
     location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=7VAI73roXaY&list=PPSV;
+        return 301 https://youtu.be/JKxlsvZXG7c?si=-8F7Ta5pxdxkYhTi;
     }
 }" > /etc/nginx/sites-available/default
 
