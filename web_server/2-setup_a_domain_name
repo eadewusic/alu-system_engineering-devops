@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Replace these variables with your actual values
+DOMAIN="eadewusic.tech"
+WEB01_IP="@54.91.235.213"
+
+# Configure DNS records with an A entry
+# Example: dns_provider_command add A eadewusic.tech $WEB01_IP
+
+# Verify DNS configuration
+dig $DOMAIN
+
+# Print the domain name to the answer file
+echo $DOMAIN
