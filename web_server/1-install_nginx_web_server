@@ -40,4 +40,5 @@ if [[ "$response" == *"$expected"* ]]; then
     echo "Nginx installation and configuration successful!"
 else
     echo "Error: Nginx configuration failed."
+    echo "Response from Nginx: $response"
 fi
