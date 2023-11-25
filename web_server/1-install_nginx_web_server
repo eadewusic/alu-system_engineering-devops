@@ -6,24 +6,10 @@ sudo apt-get update -y
 sudo apt-get install nginx -y
 
 # Create a custom HTML page with the desired string
-echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/null
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.html
 
 # Configure Nginx to use the custom HTML page
-sudo bash -c 'cat <<EOF > /etc/nginx/sites-available/default
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/html;
-    index index.html;
-
-    server_name _;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-EOF'
+sudo sed -i 's/^\(server_name\s*localhost;\)$/\1\n\n\tlocation \/ {\n\t\troot \/var\/www\/html;\n\t\tindex index.html;\n\t}\n/' /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the changes
 sudo service nginx restart
@@ -40,5 +26,4 @@ if [[ "$response" == *"$expected"* ]]; then
     echo "Nginx installation and configuration successful!"
 else
     echo "Error: Nginx configuration failed."
-    echo "Response from Nginx: $response"
 fi
