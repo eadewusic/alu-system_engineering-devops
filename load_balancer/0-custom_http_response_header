@@ -6,8 +6,8 @@
 sudo apt-get update -y
 sudo apt-get install nginx -y
 
-# Create a custom HTTP response header configuration file
-echo "add_header X-Served-By \$hostname;" | sudo tee /etc/nginx/conf.d/01-custom-header
+# Add the custom HTTP response header directly to the Nginx configuration file
+echo "add_header X-Served-By \$hostname;" | sudo tee -a /etc/nginx/sites-available/default
 
 # Restart Nginx to apply the changes
 sudo service nginx restart
