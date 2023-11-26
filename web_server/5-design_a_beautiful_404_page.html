@@ -29,6 +29,11 @@
             font-size: 2.5rem;
         }
 
+        p {
+            margin-bottom: 2rem;
+            margin-top: -1rem;
+        }
+
         .wrapper img {
             width: 600px;
             max-width: 75%;
@@ -52,7 +57,7 @@
 
         @media (max-width:767px) {
             .wrapper h2 {
-                font-size: 2rem;
+                font-size: 1rem;
             }
 
             .wrapper h4 {
@@ -67,8 +72,11 @@
 <body>
     <div class="wrapper">
         <h2>Oops! Page not found.</h2>
+        <p>Ceci n'est pas une page</p>
+
+        <!-- I hosted the image on imgbb.com so that it can display without uploading file as I can't do that on my web server-->
         <div>
-            <img decoding="async" src="http://127.0.0.1:5500/404img.png" alt="404">
+            <img decoding="async" src="https://i.ibb.co/YdnWnDc/404img.png" alt="404img" border="0">
         </div>
         <h4>They say not all who wander are lost, but I <br> guess you're the exception.</h4>
         <button type="button" class="main-btn">GO BACK HOME</button>
