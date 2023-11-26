@@ -15,9 +15,8 @@ printf %s "listen 5452-webs
     bind *:80
     mode http
     balance roundrobin
-    server 5780-web-01 54.90.247.75:80 check
+    server 5487-web-01 54.226.182.255:80 check
     server 5780-web-02 52.200.5.159:80 check
-    server 5780-lb-01 34.203.28.158:80 check
 " >> /etc/haproxy/haproxy.cfg
 
 # Restart HAProxy service
