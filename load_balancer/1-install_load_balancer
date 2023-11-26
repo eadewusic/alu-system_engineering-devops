@@ -20,3 +20,11 @@ backend eadewusic_backend
 
 # Restart HAproxy to apply the changes
 sudo service haproxy restart
+
+# Verify HAproxy status and check if the output contains "web-01"
+status=$(sudo service haproxy status)
+if [[ "$status" == *"web-01"* ]]; then
+    echo "HAproxy installation and configuration successful!"
+else
+    echo "Error: HAproxy configuration failed."
+fi
