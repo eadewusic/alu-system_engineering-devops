@@ -6,12 +6,12 @@ sudo apt-get update -y
 sudo apt-get install -y haproxy
 
 # Configure HAproxy to send traffic to web-01 and web-02
-echo "frontend eadewusic-frontend
+echo "frontend eadewusic_frontend
     bind *:80
     mode http
-    default_backend eadewusic-backend
+    default_backend eadewusic_backend
 
-backend eadewusic-backend
+backend eadewusic_backend
     mode http
     balance roundrobin
     server 5780-web-01 54.90.247.75:80 check
