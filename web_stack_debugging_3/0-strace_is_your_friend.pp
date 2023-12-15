@@ -5,7 +5,7 @@
 exec { 'fix_php_error':
   command     => '/bin/sed -i "s/mysql_connect/mysqli_connect/" /var/www/html/index.php',
   refreshonly => true,
-  subscribe   => Service['apache2'],
+  notify      => Service['apache2'], # Use notify instead of subscribe
 }
 
 # Restart Apache after fixing the PHP error
